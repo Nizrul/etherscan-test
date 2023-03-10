@@ -6,13 +6,13 @@ namespace etherscan_test
 {
 	public class ApplicationDbContext: DbContext
 	{
-        private IConfigurationRoot _config;
-        public ApplicationDbContext()
-        {
-            var builder = new ConfigurationBuilder().AddUserSecrets("b2db93b0-dfcd-4e49-8158-1f80e8064ba7");
+        // private IConfigurationRoot _config;
+        // public ApplicationDbContext()
+        // {
+        //     var builder = new ConfigurationBuilder().AddUserSecrets("b2db93b0-dfcd-4e49-8158-1f80e8064ba7");
 
-            _config = builder.Build();
-        }
+        //     _config = builder.Build();
+        // }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options): base(options)
         {
@@ -21,10 +21,10 @@ namespace etherscan_test
 		public DbSet<Block> Blocks { get; set; }
 		public DbSet<Transaction> Transactions { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseMySQL(_config.GetConnectionString("Default"));
-        }
+        // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        // {
+        //     optionsBuilder.UseMySQL(_config.GetConnectionString("Default"));
+        // }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

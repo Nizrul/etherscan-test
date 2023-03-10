@@ -5,6 +5,7 @@
 
 ## Setup
 
+- While it is a hack, you have to uncomment the paramless ApplicationDbContext and the onConfiguring to add and apply migrations
 - Create a user secret with the following json:
 
 ```
