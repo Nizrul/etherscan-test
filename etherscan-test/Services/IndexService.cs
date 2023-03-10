@@ -33,7 +33,7 @@ namespace etherscan_test.Services
 			return JsonSerializer.Deserialize<T>(contentString);
 		}
 
-		public async Task<BlockResponse> GetBlockByNumber(int number)
+		public async Task<BlockResponse> GetBlockByNumber(UInt64 number)
 		{
 			var body = JsonHelper.BuildRequestBody("eth_getBlockByNumber", $"[\"{NumberHelper.DecimalToHex(number)}\", false]");
             _logger.LogInformation($"Calling eth_getBlockByNumber for number = {number} with body = {body}");
@@ -45,7 +45,7 @@ namespace etherscan_test.Services
             return responseObject.result;
 		}
 
-		public async Task<string> GetTransactionCountByNumber(int number)
+		public async Task<string> GetTransactionCountByNumber(UInt64 number)
         {
             var body = JsonHelper.BuildRequestBody("eth_getBlockTransactionCountByNumber", $"\"{NumberHelper.DecimalToHex(number)}\"");
             _logger.LogInformation($"Calling eth_getBlockTransactionCountByNumber for number = {number} with body = {body}");
@@ -57,7 +57,7 @@ namespace etherscan_test.Services
             return responseObject.result;
         }
 
-		public async Task<TransactionResponse> GetTransactionByBlockNumberAndIndex(int number, int index)
+		public async Task<TransactionResponse> GetTransactionByBlockNumberAndIndex(UInt64 number, UInt64 index)
         {
             var body = JsonHelper.BuildRequestBody("eth_getTransactionByBlockNumberAndIndex", $"[\"{NumberHelper.DecimalToHex(number)}\", \"{NumberHelper.DecimalToHex(index)}\"]");
             _logger.LogInformation($"Calling eth_getBlockTransactionCountByNumber for number = {number} with body = {body}");
@@ -74,7 +74,7 @@ namespace etherscan_test.Services
             // First let's just retrieve all the blocks we've already saved
             var allLocalBlocks = _dbContext.Blocks.ToList();
             // go through all the numbers
-            for (var i = 1210001; i <= 12100500; i++)
+            for (UInt64 i = 1210001; i <= 12100500; i++)
             {
                 if (!allLocalBlocks.Any((block) => block.BlockNumber == i))
                 {
@@ -87,7 +87,7 @@ namespace etherscan_test.Services
                         var transactionCountHex = await GetTransactionCountByNumber(i);
 
                         var listOfTasks = new List<Task<TransactionResponse>>();
-                        for (var j = 0; j < NumberHelper.HexToDecimal(transactionCountHex); j++)
+                        for (UInt64 j = 0; j < NumberHelper.HexToDecimal(transactionCountHex); j++)
                         {
                             listOfTasks.Add(GetTransactionByBlockNumberAndIndex(i, j));
                         }

@@ -20,8 +20,8 @@ public partial class Block
         GasUsed = NumberHelper.HexToDecimal(block.gasUsed);
     }
 
-    public int BlockId { get; set; }
-    public int BlockNumber { get; set; }
+    public UInt64 BlockId { get; set; }
+    public UInt64 BlockNumber { get; set; }
     public string? Hash { get; set; }
     public string? ParentHash { get; set; }
     public string? Miner { get; set; }
@@ -50,15 +50,15 @@ public partial class Transaction
         TransactionIndex = NumberHelper.HexToDecimal(transaction.transactionIndex);
     }
 
-    public int TransactionId { get; set; }
-    public int BlockId { get; set; }
+    public UInt64 TransactionId { get; set; }
+    public UInt64 BlockId { get; set; }
     public string Hash { get; set; }
     public string From { get; set; }
     public string To { get; set; }
     public decimal Value { get; set; }
     public decimal Gas { get; set; }
     public decimal GasPrice { get; set; }
-    public int TransactionIndex { get; set; }
+    public UInt64 TransactionIndex { get; set; }
 
     [JsonIgnore]
     public virtual Block Block { get; set; }

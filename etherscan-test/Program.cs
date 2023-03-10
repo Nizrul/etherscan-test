@@ -32,8 +32,6 @@ class Program
         IndexService indexService = serviceProvider.GetService<IndexService>();
         var logger = serviceProvider.GetService<ILogger<Program>>();
 
-        int number = 10;
-        string hex = NumberHelper.DecimalToHex(number);
         logger.LogInformation($"Calling index service's indexBlocks function");
 
         indexService.IndexBlocks().Wait();
